@@ -16,9 +16,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        ItemsService itemsService = new ItemsService();
-        adapter = new ItemsAdapter();
-        adapter.setItemsList(itemsService.getItemsList());
+
+        adapter = new ItemsAdapter(new ItemsService());
+
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         binding.myRecyclerView.setLayoutManager(layoutManager);
         binding.myRecyclerView.setAdapter(adapter);

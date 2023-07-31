@@ -1,7 +1,5 @@
 package com.example.studybyromanandrushchenko;
 
-import java.util.ArrayList;
-
 public class Item {
     private String _name;
 

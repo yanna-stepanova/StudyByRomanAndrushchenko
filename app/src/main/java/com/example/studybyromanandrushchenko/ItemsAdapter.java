@@ -1,6 +1,7 @@
 package com.example.studybyromanandrushchenko;
 
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -8,16 +9,21 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.studybyromanandrushchenko.databinding.ItemRecyclerBinding;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemViewHolder> {
-    private List<Item> _itemsList = null;
+    private ItemsService _itemsService;
     ItemRecyclerBinding binding;
 
-    public void setItemsList(List<Item> itemsList) {
-        this._itemsList = itemsList;
-        notifyDataSetChanged(); //it works if it's used the method add/remove/edit
+    public ItemsAdapter(ItemsService itemsService) {
+        this._itemsService = itemsService;
     }
+
+   /* public void setItemsList(List<Item> itemsList) {
+
+        notifyDataSetChanged(); //it works if it's used the method add/remove/edit
+    }*/
 
     @NonNull
     @Override
@@ -27,20 +33,25 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemViewHold
         return new ItemViewHolder(binding);
     }
 
-    public List<Item> getItemsList() {
-        return _itemsList;
-    }
+
 
     @Override
     public void onBindViewHolder(@NonNull ItemViewHolder holder, int position) {
-        Item object = getItemsList().get(position); // receive an element from our list
+        Item object = _itemsService.getItemsList().get(position);// receive an element from our list
         holder.getItemRecyclerBinding().textViewItem.setText(object.getName());
-        
+        holder.getItemRecyclerBinding().imageViewDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+              _itemsService.deleteItem(object);
+              notifyDataSetChanged();
+            }
+        });
+
     }
 
     @Override
     public int getItemCount() {
-        return _itemsList.size();
+        return _itemsService.getItemsList().size();
     }
 
     class ItemViewHolder extends RecyclerView.ViewHolder{
