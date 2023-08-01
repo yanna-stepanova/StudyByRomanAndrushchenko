@@ -18,7 +18,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         adapter = new ItemsAdapter(new ItemsService());
-
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         binding.myRecyclerView.setLayoutManager(layoutManager);
         binding.myRecyclerView.setAdapter(adapter);
